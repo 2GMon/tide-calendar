@@ -102,7 +102,7 @@ async function calendar(station: string, place: string, today: Date) {
 
     today.setDate(today.getDate() + 1);
     ical += `DTEND;VALUE=DATE:${formatYYYYMMDD(today)}\r\n`;
-    ical += `SUMMARY:${tide} ${summary}\r\n`
+    ical += `SUMMARY:[${tide}] ${summary}\r\n`
     ical += `DESCRIPTION:${desc}\r\n`;
     ical += "END:VEVENT\r\n";
   }
