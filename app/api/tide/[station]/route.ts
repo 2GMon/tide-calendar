@@ -10,13 +10,23 @@ function formatYYYYMMDD(date: Date) {
 }
 
 function calendar(place: string, today: Date) {
-  let ical = "BEGIN\r\n";
+  let ical = "BEGIN:VCALENDAR\r\n";
+  ical += "PRODID:2GMon\r\n";
   ical += "VERSION:2.0\r\n";
-  ical += "PRODID: 2GMon\r\n";
   ical += "CALSCALE:GREGORIAN\r\n";
   ical += "METHOD:PUBLISH\r\n";
   ical += `X-WR-CALNAME:${place}の潮汐(MIRC方式)\r\n`;
   ical += "X-WR-TIMEZONE:Asia/Tokyo\r\n";
+  ical += "BEGIN:VTIMEZONE\r\n";
+  ical += "TZID:Asia/Tokyo\r\n";
+  ical += "X-LIC-LOCATION:Asia/Tokyo\r\n";
+  ical += "BEGIN:STANDARD\r\n";
+  ical += "TZOFFSETFROM:+0900\r\n";
+  ical += "TZOFFSETTO:+0900\r\n";
+  ical += "TZNAME:JST\r\n";
+  ical += "DTSTART:19700101T000000\r\n";
+  ical += "END:STANDARD\r\n";
+  ical += "END:VTIMEZONE\r\n";
   for (let i = 0; i < 90; i++) {
     ical += "BEGIN:VEVENT\r\n";
     ical += `DTSTART;VALUE=DATE:${formatYYYYMMDD(today)}\r\n`;
@@ -28,6 +38,7 @@ function calendar(place: string, today: Date) {
     ical += `SUMMARY:${tide}\r\n`
     ical += "END:VEVENT\r\n";
   }
+  ical += "END:VCALENDAR\r\n";
 
   return ical;
 }
